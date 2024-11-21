@@ -34,6 +34,15 @@ jobs:
 
     # "steps" holds a list of all the steps needed to package and release our AddOn
     steps:
+      #update localisation
+      - name: HTTP Request Action
+        uses: fjogeleit/http-request-action@v1.14.0
+        with:
+          url: 'https://wow.curseforge.com/api/projects/662863/localization/import'
+          method: 'POST'
+          token: CF_API_KEY
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{metadata:{language: "enUS",}, localizations: Locales/enUS.lua }'
 
       # we first have to clone the AddOn project, this is a required step
       - name: Clone project
